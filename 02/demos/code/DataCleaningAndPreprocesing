@@ -8,4 +8,25 @@ import seaborn as sns
 data = pd.read_csv("C:/Users/PerezPeA/OneDrive - Unisys/Documents/Training/Representing, Processing, and Preparing Data/02/demos/mobile_price_classification.csv")
 data.head()
 
+#------ dataset information ----------
+data.shape
+data.columns
+data.shape
+data.describe()
+
+#------- data cleaning operations --------
+
+#delete the id column 
+data = data.drop("id", axis=1)
+
+#rename colomns 
+data = data.rename(columns = {
+    "blue" : "bluetooth",
+    "fc" : "fc_megapixel",
+    "pc" : "pc_megapixel",
+    "m_dep" : "m_depth"})
+
+#check for  duplicates
+dupes = data.duplicated()
+dupes.head()
 
