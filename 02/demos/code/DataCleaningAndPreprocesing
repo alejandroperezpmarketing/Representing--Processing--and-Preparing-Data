@@ -29,4 +29,17 @@ data = data.rename(columns = {
 #check for  duplicates
 dupes = data.duplicated()
 dupes.head()
+sum(dupes) #question 1 : how many duplicated cells are in my data?
+data = data.drop_duplicates() #delete duplicates in the dataset
+
+#checking for missing values
+data.isnull().sum()#or data.isna().sum()---- # question 2 : how many missing values are in my dataset
+#-----------
+#colomns  with missing values - dual_sim - fc_megapixel - ram - 
+#-----------
+len(data['ram'].unique()) #how many unique  values are in my colomn
+#filling missing data
+data = data['ram'].fillna(method='backfill') #backfill and mean are two of the methodes for fill missing  data
+
+unique = len(data['ram'].unique())
 
