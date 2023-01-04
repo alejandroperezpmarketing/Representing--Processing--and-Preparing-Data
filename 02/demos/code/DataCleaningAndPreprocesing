@@ -1,0 +1,11 @@
+#-------- importing libraries -------
+
+import pandas as pd
+import os
+import numpy as np
+import seaborn as sns
+
+data = pd.read_csv("C:/Users/PerezPeA/OneDrive - Unisys/Documents/Training/Representing, Processing, and Preparing Data/02/demos/mobile_price_classification.csv")
+data.head()
+
+

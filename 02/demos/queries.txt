@@ -1,0 +1,222 @@
+MODULE 2
+
+
+
+Demo 1 CreatingAzureSqlDatabase
+
+
+CREATE TABLE mobiles
+(
+   ID INT,
+   MobileName NVARCHAR(128) NOT NULL
+)
+
+
+
+
+INSERT INTO [mobiles]
+      ([ID],
+       [MobileName])
+  VALUES
+      (2300,
+       'iPhone X');
+
+
+
+
+
+
+INSERT INTO [mobiles]
+      ([ID],
+       [MobileName])
+  VALUES
+      (2301,
+       'Pixel 3');
+
+
+
+
+INSERT INTO [mobiles]
+      ([ID],
+       [MobileName])
+  VALUES
+      (2302,
+       'OnePlus 6T');
+
+
+
+SELECT * FROM mobiles;
+
+
+
+
+
+UPDATE [mobiles]
+SET [MobileName] = 'iPhone XR'
+WHERE ID = 2300;
+
+
+SELECT * FROM mobiles;
+
+DELETE FROM mobiles
+WHERE MobileName = 'Pixel 3';
+
+
+SELECT * FROM mobiles;
+
+
+
+
+DEMO 2 QueryingData
+
+
+
+SELECT * FROM mobiles;
+
+
+
+SELECT * FROM mobile_data_csv;
+
+
+SELECT ID, PRICE_RANGE FROM mobile_data_csv WHERE DUAL_SIM = 0;
+
+
+SELECT * FROM mobile_data_csv
+WHERE mobile_wt LIKE '%16%';
+
+
+
+SELECT ID, ram, battery_power, price_range
+FROM mobile_data_csv
+WHERE battery_power> 1000 ORDER BY ram ASC;
+
+
+
+
+
+SELECT price_range, COUNT(*)AS 'number of mobile phones'
+FROM mobile_data_csv
+GROUP BY price_range;
+
+
+
+
+
+
+
+SELECT * FROM battery_weight_view;
+
+
+
+Demo 3 QueryingJsonData
+
+
+
+CREATE TABLE mobile_data_json(
+id int ,
+battery_power int,
+bluetooth int,
+clock_speed DECIMAl(5,2)
+)
+
+
+SELECT * FROM mobile_data_json;
+
+SELECT * FROM mobile_data_json
+WHERE bluetooth = 1;
+
+
+
+SELECT id, battery_power, bluetooth
+FROM mobile_data_json
+WHERE battery_power > 1000 AND bluetooth = 1;
+
+
+
+
+
+SELECT mobile_data_json.id,mobile_data_json.battery_power,mobile_data_csv.price_range 
+FROM mobile_data_csv
+JOIN  mobile_data_json
+  ON (mobile_data_json.id = mobile_data_csv.id);
+
+
+
+MODULE 3
+
+Demo 1 WorkingWithDataStudio
+
+
+CREATE TABLE test_mobile_data
+(
+   id INT,
+   mobile_name NVARCHAR(128) NOT NULL
+)
+
+INSERT INTO [test_mobile_data]
+      ([id],
+       [mobile_name])
+  VALUES
+      (212,
+       'BlackBerry Key2');
+
+
+SELECT * FROM test_mobile_data
+
+
+
+SELECT price_range, COUNT(*) AS "count"
+FROM mobile_data_csv
+GROUP BY price_range;
+
+
+
+SELECT talk_time, AVG(battery_power) AS "Average Battery Power"
+FROM mobile_data_csv
+GROUP BY talk_time
+ORDER BY talk_time;
+
+
+
+
+SELECT price_range,
+AVG(ram) AS "average ram "
+FROM mobile_data_csv
+GROUP BY price_range;
+
+
+
+
+
+SELECT id, price_range FROM mobile_data_csv WHERE wifi = 1;
+
+
+
+
+
+SELECT id, battery_power, bluetooth
+FROM mobile_data_json
+WHERE battery_power > 1000 AND bluetooth = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
