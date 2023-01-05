@@ -84,7 +84,83 @@ categorical_data.head()
 #---------libraries--------
 from matplotlib import pyplot as plt
 import seaborn as sns
-
+#ram colomn 
 fig, ax = plt.subplots(figsize = (10, 8))
 sns.boxplot(numeric_data['ram'], 
                     orient= 'v')
+plt.show()
+
+#mobile_wt colomn
+fig, ax = plt.subplot(figsize = (10, 8))
+
+sns.boxenplot(numeric_data['mobile_wt'],
+                orient='v')
+
+plt.show()
+
+#all the  colomns
+
+fig, ax = plt.subplot(figsize = (10, 8))
+
+bp = sns.boxenplot(data=numeric_data)
+
+bp.set_xticklabels(bp.get_xticklabels(), rotation=90)
+
+plt.show()
+
+# location of outliers standarizing  data
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaled_array = scaler.fit_transform(numeric_data) #scale the numeric data  to have zero mean and unit variance
+
+scaled_data = pd.DataFrame(scaled_array, columns = numeric_data.columns) #we create a new  dataframe  with the  array created in the  previous  step
+scaled_data.head()
+
+scaled_data.describe()
+
+#########------------------------------
+#plot with all the standarized  colomns 
+
+fig, ax = plt.subplot(figsize = (10, 8))
+
+bp = sns.boxenplot(data= scaled_data)
+
+bp.set_xticklabels(bp.get_xticklabels(), rotation=90)
+
+plt.show()
+
+
+#remove outliers
+
+Q1 = numeric_data.quantile(0.25)
+Q3 = numeric_data.quantile(0.75)
+
+IQR = Q3 - Q1
+
+print(IQR)
+
+############### removing  the  outliers
+outliers_removed_data = numeric_data[~ ((numeric_data < (Q1 - 1.5 * IQR)) \
+                                     | (numeric_data > (Q3 + 1.5 * IQR))).any(axis=1)]
+
+outliers_removed_data.shape
+numeric_data.shape
+
+#ploting the data
+fig, ax =  plt.subplot(figsize = (10, 8))
+
+bp = sns.boxenplot(data= outliers_removed_data)
+
+bp.set_xticklabels(bp.get_xticklabels(), rotation=90)
+plt.show()
+ 
+
+
+######################################################################################
+#------------------------------------------------------------------------------------
+
+#TRAING A  CLASIFICATION MODULE 
+
+from sklearn.model_selection import train_test_split
+
