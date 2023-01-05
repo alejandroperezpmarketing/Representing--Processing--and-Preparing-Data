@@ -189,3 +189,4 @@ logistic_model = LogisticRegression(solver = 'lbfgs',
 logistic_model.fit(x_train, y_train)
 logistic_model.score(x_test, y_test)
 
+
