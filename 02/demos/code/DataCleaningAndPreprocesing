@@ -60,3 +60,31 @@ data.shape
 #save this clean detaset ---------------
 
 data.to_csv('mobile_data_cleaned.csv', index = False)
+
+##################################################################################
+##################################################################################
+
+#---------------------------------------------------------------------------------
+
+# IDENTIFIYING OUTLIERS 
+
+
+#----------------------------------------------
+
+#we  clasify the  data  in numeric data  and categorical data
+#numeric data
+data.columns
+numeric_data = data.drop(['bluetooth', 'dual_sim', 'four_g', 'three_g', 'touch_screen', 'wifi', 'price_range'], axis=1)
+numeric_data.head()
+#categorical data
+categorical_data = data.drop(numeric_data, axis=1)
+categorical_data.head()
+
+#visualization of outliers
+#---------libraries--------
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+fig, ax = plt.subplots(figsize = (10, 8))
+sns.boxplot(numeric_data['ram'], 
+                    orient= 'v')
