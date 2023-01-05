@@ -31,7 +31,9 @@ dupes = data.duplicated()
 dupes.head()
 sum(dupes) #question 1 : how many duplicated cells are in my data?
 data = data.drop_duplicates() #delete duplicates in the dataset
-
+dupes = data.duplicated()
+dupes.head()
+sum(dupes)
 #checking for missing values
 data.isnull().sum()#or data.isna().sum()---- # question 2 : how many missing values are in my dataset
 #-----------
@@ -39,7 +41,22 @@ data.isnull().sum()#or data.isna().sum()---- # question 2 : how many missing val
 #-----------
 len(data['ram'].unique()) #how many unique  values are in my colomn
 #filling missing data
-data = data['ram'].fillna(method='backfill') #backfill and mean are two of the methodes for fill missing  data
+data['ram'] = data['ram'].fillna(method='backfill') #backfill and mean are two of the methodes for fill missing  data
+len(data['ram'].unique())
 
-unique = len(data['ram'].unique())
+data.isnull().sum()
 
+data['mobile_wt'] = data['mobile_wt'].fillna(data['mobile_wt'].median())
+data.isnull().sum()
+
+data = data.dropna()
+data.isnull().sum().describe()
+
+
+data.shape
+
+#-----------------------------------------------------------
+
+#save this clean detaset ---------------
+
+data.to_csv('mobile_data_cleaned.csv', index = False)
